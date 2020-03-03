@@ -1,0 +1,34 @@
+- name: Include global variables
+  include_vars: ../../common/defaults/main.yml
+- name: Ensure haproxy is installed
+  yum:
+    name: haproxy
+    state: installed
+- name: Create HAProxy config
+  template:
+    src: haproxy.j2
+    dest: /etc/haproxy/haproxy.cfg
+- name: Enable HTTP service on port 6443 and 22623 on firewalld
+  firewalld:
+    zone: public
+    port: "{{ item }}/tcp"
+    permanent: yes
+    immediate: yes
+    state: enabled
+  with_items:
+  - 6443
+  - 22623
+- name: Allow HAProxy to listen on tcp port 6443 and 22623
+  seport:
+    ports: "{{ item }}" 
+    proto: tcp
+    setype: http_port_t
+    state: present
+  with_items:
+  - 6443
+  - 22623
+- name: restart haproxy
+  systemd:
+    name: haproxy
+    state: restarted
+    enabled: yes
