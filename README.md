@@ -17,6 +17,11 @@ Though different approaches exist addressing an automated OpenShift installation
 
 ## General Setup
 
+### Prerequisites
+You need to have access to the Red Hat Enterprise Linux (RHEL) binaries.
+
+### Basic Steps
+
   1. KVM gets installed and set up.
   1. Based on an _Inventory_ file, a single KVM node ("Bootstrap" node) is created for further deployment of the cluster).
   1. When the bootstrap node is up, it is used to create the cluster nodes.
@@ -77,30 +82,32 @@ KVM/libvirt installation needed for running the OpenShift cluster. Deep explanat
 #### Add Worker Nodes
 
 ### Reference, Inspiration, Links
-
 In open source, you always stand on the shoulders of giants, so do we.
 
-[OCP4 UPI Helpernode](https://github.com/christianh814/ocp4-upi-helpernode)
 
+[OCP4 UPI Helpernode](https://github.com/christianh814/ocp4-upi-helpernode)
 Comprehensive single node setup. The helper node acts as bastion and bootstrap node.
 
-[Hetzner OCP4](https://github.com/RedHat-EMEA-SSA-Team/hetzner-ocp4)
 
+[Hetzner OCP4](https://github.com/RedHat-EMEA-SSA-Team/hetzner-ocp4)
 An automated installation From the Red Hat EMEA "Tigers", specifically targeting the Hetzner dedicated hosting environment (https://www.hetzner.com/sb).
 
-[OpenShift 4 IPI for Hetzner](https://jicken.gitbook.io/blog/guides/openshift-4-ipi-kvm-install-on-a-hetzner-root-server)
 
+[OpenShift 4 IPI for Hetzner](https://jicken.gitbook.io/blog/guides/openshift-4-ipi-kvm-install-on-a-hetzner-root-server)
 Documentation of a KVM based IPI install on the Hetzner environment.
+
+
+
 
 Some of us are actually giants in their own right ;) ...:
 
-[Ansible lab](https://github.com/elajoie/lab.local)
 
-By [@jcordes73](https://github.com/jcordes73) - target platform is his famous "OpenShift-in-a-box" environment.
+[Ansible lab](https://github.com/elajoie/lab.local)
+From [@jcordes73](https://github.com/jcordes73) - target platform is his famous "OpenShift-in-a-box" environment.
+
 
 [OCP4 Labs-Ansible](https://github.com/jcordes73/ocp4labs-ansible)
-
-By [@elajoie](https://github.com/elajoie) - derived from practical field work.
+From [@elajoie](https://github.com/elajoie) - derived from practical field work.
 
 ### TO DO/WIP
 
