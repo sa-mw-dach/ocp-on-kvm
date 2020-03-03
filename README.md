@@ -93,8 +93,8 @@ Documentation of a KVM based IPI install on the Hetzner environment.
 Some of us are actually giants in their own right ;) ...:
 
 [Ansible lab](https://github.com/elajoie/lab.local)
-By our @jcordes73 - target platform is his famous "OpenShift-in-a-box" environment.
+By [@jcordes73](https://github.com/jcordes73) - target platform is his famous "OpenShift-in-a-box" environment.
 
 
 [OCP4 Labs-Ansible](https://github.com/jcordes73/ocp4labs-ansible)
-By our @elajoie - derived from practical field work.
+By [@elajoie](https://github.com/elajoie) - derived from practical field work.
