@@ -1,5 +1,5 @@
 - name: Include global variables
-  include_vars: ../../all/defaults/main.yml
+  include_vars: ../../common/defaults/main.yml
 - name: Ensure haproxy is installed
   yum:
     name: haproxy
