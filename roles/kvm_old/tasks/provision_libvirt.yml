@@ -2,6 +2,7 @@
     state: present
     username: "{{ rhn_user }}"
     password: "{{ rhn_password }}"
+    consumer_id: "{{ hostvars[inventory_hostname]['systemid'] }}"
     auto_attach: true
   ignore_errors: yes
 - shell:
@@ -21,7 +22,7 @@
     state: installed
 - systemd:
     name: libvirtd
-    state: started
+    state: restarted
     enabled: yes
 - systemd:
     name: tuned
@@ -29,6 +30,10 @@
     enabled: yes
 - shell:
     cmd: tuned-adm profile virtual-host
+- copy:
+    src: bridge.xml 
+    dest: bridge.xml
+- script: create_bridge.sh
 - firewalld:
     zone: public
     port: 5900/tcp
