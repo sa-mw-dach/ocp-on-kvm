@@ -1,0 +1,26 @@
+- name: Install HTTPD Server
+  yum:
+    name: httpd
+    state: present
+- name: Enable HTTP service on port 8080 on firewalld
+  firewalld:
+    zone: public
+    port: 8080/tcp
+    permanent: yes
+    immediate: yes
+    state: enabled
+- name: Allow HTTPD to listen on tcp port 8080
+  seport:
+    ports: 8080
+    proto: tcp
+    setype: http_port_t
+    state: present
+- name: Copy httpd.conf listen to localhost on port 8080
+  copy:
+    src: httpd.conf
+    dest: /etc/httpd/conf
+- name: Enable and start HTTPD service
+  systemd:
+    name: httpd
+    state: restarted
+    enabled: yes

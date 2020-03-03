@@ -1,0 +1,9 @@
+- hosts: bastion
+  roles:
+  - dns
+  - ntp
+  - tftp
+  - dhcp
+  - httpd
+  - haproxy
+  - kvm
