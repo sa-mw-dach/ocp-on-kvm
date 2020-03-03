@@ -6,4 +6,11 @@
   - dhcp
   - httpd
   - haproxy
+  - { role: kvm-iso, when: kvm_install == 'pxe' }
+  - { role: kvm-grub, when: kvm_install == 'pxe' }
+- hosts: kvm
+  roles:
   - kvm
+  - kvm-cleanup
+  - { role: kvm-share, when: kvm_image_device is defined }
+  - { role: kvm-bridge, when: kvm_network_mode == 'bridge' }

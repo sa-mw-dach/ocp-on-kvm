@@ -1,0 +1,10 @@
+- name: copy bridge.xml template
+  copy:
+    src: bridge.xml 
+    dest: bridge.xml
+- name: copy create_bridge.sh script
+  template:
+    src: create_bridge.sh.j2
+    dest: create_bridge.sh
+- name: execute bridge creation script
+  command: sh create_bridge.sh

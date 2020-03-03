@@ -1,0 +1,2 @@
+- name: Bridge setup
+  import_tasks: create_bridge.yml

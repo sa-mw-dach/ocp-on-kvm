@@ -1,14 +1,5 @@
-- parted: device=/dev/sdb unit=MiB
-  register: sdb_info
-- debug:
-    var: sdb_info
-- shell:
-    cmd: |
-      virsh list --name | xargs -I{} virsh destroy {}
-      virsh list --name | xargs -I{} virsh undefine {}
-      rm -rf /var/lib/libvirt/images/*
-  ignore_errors: yes
-  retries: 3
+- parted: device={{ kvm_image_device }} unit=MiB
+  register: image_share_info
 - systemd:
     name: libvirtd
     state: stopped
@@ -27,23 +18,23 @@
     state: absent
     force: true
 - parted:
-    device: /dev/sdb
+    device: "{{ kvm_image_device }}"
     number: '{{ item.num }}'
     state: absent
-  loop: '{{ sdb_info.partitions }}'
+  loop: '{{ image_share_info.partitions }}'
 - parted:
-    device: /dev/sdb
+    device: "{{ kvm_image_device }}"
     number: 1
     flags: [ lvm ]
     state: present
 - lvg:
     vg: vg_kvm_xfs
-    pvs: /dev/sdb1
+    pvs: "{{ kvm_image_device }}1"
     state: present
 - lvol:
     vg: vg_kvm_xfs
     lv: kvm_xfs_db
-    pvs: /dev/sdb1
+    pvs: "{{ kvm_image_device }}1"
     size: +100%PVS
     resizefs: yes
 - filesystem:
