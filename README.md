@@ -85,7 +85,7 @@ Comprehensive single node setup. The helper node acts as bastion and bootstrap n
 
 
 [Hetzner OCP4](https://github.com/RedHat-EMEA-SSA-Team/hetzner-ocp4)
-An automated installation From the Red Hat ENEA "Tigers", specifically targeting the Hetzner dedicated hosting environment (https://www.hetzner.com/sb).
+An automated installation From the Red Hat EMEA "Tigers", specifically targeting the Hetzner dedicated hosting environment (https://www.hetzner.com/sb).
 
 [OpenShift 4 IPI for Hetzner](https://jicken.gitbook.io/blog/guides/openshift-4-ipi-kvm-install-on-a-hetzner-root-server)
 Documentation of a KVM based IPI install on the Hetzner environment.
