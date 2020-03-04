@@ -1,5 +1,7 @@
 # OCP on KVM
 
+## Table of Contents
+
 * [OCP on KVM](#ocp-on-kvm)  
   * [Purpose](#purpose)  
   * [Design Principles](#design-principles)  
