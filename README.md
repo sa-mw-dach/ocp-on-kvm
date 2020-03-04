@@ -56,7 +56,7 @@ ansible-vault encrypt group_vars/all/vault.yml
 ``
 touch inventory
 ``  
-Add content to the inventory file according to your infrastructure setup. You can find an [example inventory file here](documentation/example-files/inventory-example).
+Add content to the inventory file according to your infrastructure setup. You can find an [example inventory file here](https://raw.githubusercontent.com/sa-mw-dach/ocp-on-kvm/documentation-kg/documentation/example-files/inventory-example).
   1. Run the playbook  
 ``
 ansible-playbook -vvv --ask-vault-pass -i inventory playbook.yml > ansible.log 2>&1
