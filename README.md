@@ -48,7 +48,8 @@ Put in this information and replace the placeholders ``<rhn-user>`` and ``<rhn-p
 ``
 vault_rhn_user: <rhn-user>
 vault_rhn_password: <rhn-password>
-``  and encrypt it:
+``  
+and encrypt it:  
 ``
 ansible-vault encrypt group_vars/all/vault.yml
 ``  Make sure you can remember the password given as you'll need it later.
