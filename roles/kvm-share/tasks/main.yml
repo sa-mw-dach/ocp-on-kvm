@@ -1,0 +1,2 @@
+- name: Create share for VMs
+  import_tasks: create_kvm_share.yml

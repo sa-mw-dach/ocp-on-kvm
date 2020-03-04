@@ -18,7 +18,7 @@ network  --bootproto=dhcp --device=enp1s0 --ipv6=auto --activate
 url --url="http://{{ hostvars['bastion']['ansible_host'] }}/RedHat-RHEL/8.1"
 # Root password
 rootpw --iscrypted $6$oMfUABOznmu.0Fco$tAOYuCgw0stq./H8xi5A2TwMIT4lJhXRj6OB/YID.RRtjBDHb09mDJyOYOGRq88Fd6XQOFVarxfkkMCwqCJ821
-sshkey --username=root "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDH+KnGyJQflNqu9svgCxcuTojshIYwOZ0e6jNSqaYHLubUxzzvpgjNY46hbnAP+WFDqBbIWnAYlfk7OtUIXOnMu6Piyg3jsOfzk7AroiJJ4XoPY1mvc6K98vQ9jdHXAE6OJzNt3lGMl0CPTbWOlUH/j7mxNCZv04395iBDu5WPfgJ3b5nRR7hYZgD+USyaXGQuqvycW1ZT30hSTz3sUamyKFl5FHcRe8uU5NOfj1HkPXHwooqXiJgG3E0UC7BgY3WDpd4CASc6NjOCXNG3ZuI3fRSYBWwB6xn9wCXcoV0prylqfLTeo1SJhBwu7SphdytiLbQRL/fFGdjaBNOChoVB root@bastion.ocplabs.com"
+sshkey --username=root "{{ anaconda_ssh_key }}"
 
 # System services
 services --enabled="chronyd"

@@ -1,5 +1,5 @@
 #!/bin/bash
-INTERFACE_NAME=enp1s0
+INTERFACE_NAME={{ kvm_interface }}
 
 nmcli con down "System ${INTERFACE_NAME}"
 nmcli con down "br0"

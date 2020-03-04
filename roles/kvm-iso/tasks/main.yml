@@ -1,0 +1,2 @@
+- name: Mount RHEL 8.1 ISO and copy contents to HTTP server
+  import_tasks: provide_iso.yml

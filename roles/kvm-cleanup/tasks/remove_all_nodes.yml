@@ -9,3 +9,4 @@
   - "{{ groups['workers'] }}"
   - "{{ groups['masters'] }}"
   ignore_errors: yes
+  retries: 3
