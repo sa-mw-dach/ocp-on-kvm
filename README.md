@@ -98,6 +98,11 @@ Installed unconditionally.
 Check the `ìnventory``file if your setup needs the various ``kvm_`` parameters.
 
 #### (Optional) Add Bridging  
+If you don't think you need bridging, remove  
+``
+kvm_network_mode=bridge
+``  
+in your ``ìnventory`` file.
 
 #### Uodate Firewall  
 
