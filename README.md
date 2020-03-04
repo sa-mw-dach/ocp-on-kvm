@@ -18,12 +18,14 @@ Though different approaches exist addressing an automated OpenShift installation
 ## General Setup
 
 ### Prerequisites
-You need to have access to the Red Hat Enterprise Linux (RHEL) binaries.
+  * You need to have access to the Red Hat Enterprise Linux (RHEL) binaries.
+  * Ansible 2.8++
+  * Terminal access.
 
 ### Basic Steps I: What is done?
 
   1. KVM gets installed and set up.
-  1. Based on an _Inventory_ file, a single KVM node ("Bootstrap" node) is created for further deployment of the cluster).
+  1. Based on an _inventory_ file, a single KVM node ("Bootstrap" node) is created for further deployment of the cluster).
   1. When the bootstrap node is up, it is used to create the cluster nodes.
 
 ### Basic Steps II: What do you need to do?
@@ -32,7 +34,11 @@ You need to have access to the Red Hat Enterprise Linux (RHEL) binaries.
 ``
 git clone https://github.com/sa-mw-dach/ocp-on-kvm.git
 ``
-  1. Create your inventory file.
+  1. Create your inventory file.  
+``
+touch inventory
+``
+Add content to the inventory file according to your infrastructure setup. You can find an [example inventory file here](/documentation/example-files/invetory-example).
   1. Run the playbook  
 ``
 ansible-playbook -vvv --ask-vault-pass -i inventory playbook.yml > ansible.log 2>&1
