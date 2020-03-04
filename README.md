@@ -52,7 +52,8 @@ vault_rhn_password: <rhn-password>
 and encrypt it:  
 ``
 ansible-vault encrypt group_vars/all/vault.yml
-``  Make sure you can remember the password given as you'll need it later.
+``  
+Make sure you can remember the password given as you'll need it later.  
   1. Create an inventory file.  
 ``
 touch inventory
