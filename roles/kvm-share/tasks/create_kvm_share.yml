@@ -1,4 +1,4 @@
-- parted: device={{ kvm_image_device }} unit=MiB
+- parted: device=/dev/{{ kvm_image_device }} unit=MiB
   register: image_share_info
 - systemd:
     name: libvirtd
@@ -18,23 +18,23 @@
     state: absent
     force: true
 - parted:
-    device: "{{ kvm_image_device }}"
+    device: "/dev/{{ kvm_image_device }}"
     number: '{{ item.num }}'
     state: absent
   loop: '{{ image_share_info.partitions }}'
 - parted:
-    device: "{{ kvm_image_device }}"
+    device: "/dev/{{ kvm_image_device }}"
     number: 1
     flags: [ lvm ]
     state: present
 - lvg:
     vg: vg_kvm_xfs
-    pvs: "{{ kvm_image_device }}1"
+    pvs: "/dev/{{ kvm_image_device }}1"
     state: present
 - lvol:
     vg: vg_kvm_xfs
     lv: kvm_xfs_db
-    pvs: "{{ kvm_image_device }}1"
+    pvs: "/dev/{{ kvm_image_device }}1"
     size: +100%PVS
     resizefs: yes
 - filesystem:

@@ -1,0 +1,13 @@
+cpu_model: "host-passthrough"
+bootstrap_node_memory: 8192
+bootstrap_node_cpu: 4
+bootstrap_node_disksize: 40
+master_node_memory: 8192
+master_node_cpu: 4
+master_node_cpu_hyperthreading: Enabled
+master_node_disksize: 40
+worker_node_memory: 4096 
+worker_node_cpu: 2
+worker_node_cpu_hyperthreading: Enabled
+worker_node_disksize: 40
+os_variant: rhel8.0

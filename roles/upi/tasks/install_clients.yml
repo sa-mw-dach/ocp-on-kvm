@@ -1,0 +1,14 @@
+- file:
+    path: "{{ ocp_home }}/bin"
+    state: directory
+    mode: '0755'
+- unarchive:
+    src: https://mirror.openshift.com/pub/openshift-v4/clients/ocp/{{ocp_release}}/openshift-client-linux-{{ocp_release}}.tar.gz
+    dest: "{{ ocp_home }}/bin"
+    remote_src: yes
+    creates: "{{ ocp_home }}/bin/oc"
+- unarchive:
+    src: https://mirror.openshift.com/pub/openshift-v4/clients/ocp/{{ocp_release}}/openshift-install-linux-{{ocp_release}}.tar.gz
+    dest: "{{ ocp_home }}/bin"
+    remote_src: yes
+    creates: "{{ ocp_home }}/bin/openshift-install"

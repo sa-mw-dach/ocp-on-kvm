@@ -1,0 +1,15 @@
+- name: Create Nexus Working Directory on detached storage
+  file:
+    path: /mnt/detached-storage/sonatype-work
+    state: directory
+- name: Create symlink for Nexus Working Directory
+  file:
+     src: /mnt/detached-storage/sonatype-work
+     dest: /opt/sonatype-work
+     state: link
+- name:
+  file:
+    path: /mnt/detached-storage/nexus-blob
+    state: directory
+    owner: nexus
+    group: nexus

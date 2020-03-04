@@ -6,6 +6,6 @@ log-queries
 srv-host=_etcd-server-ssl._tcp.{{ocp_cluster_name}}.{{ocp_cluster_domain_name}},etcd-{{ loop.index0 }}.{{ocp_cluster_name}}.{{ocp_cluster_domain_name}},2380,0,10
 address=/etcd-{{ loop.index0 }}.{{ocp_cluster_name}}.{{ocp_cluster_domain_name}}/{{ hostvars[host]['ansible_host'] }}
 {% endfor %}
-address=/api.{{ocp_cluster_name}}.{{ocp_cluster_domain_name}}/{{ hostvars[groups['bastion'][0]]['ansible_host'] }}
-address=/api-int.{{ocp_cluster_name}}.{{ocp_cluster_domain_name}}/{{ hostvars[groups['bastion'][0]]['ansible_host'] }}
-address=/.apps.{{ocp_cluster_name}}.{{ocp_cluster_domain_name}}/{{ hostvars[groups['bastion'][0]]['ansible_host'] }}
+address=/api.{{ocp_cluster_name}}.{{ocp_cluster_domain_name}}/{{ hostvars[groups['bastionhost'][0]]['ansible_host'] }}
+address=/api-int.{{ocp_cluster_name}}.{{ocp_cluster_domain_name}}/{{ hostvars[groups['bastionhost'][0]]['ansible_host'] }}
+address=/.apps.{{ocp_cluster_name}}.{{ocp_cluster_domain_name}}/{{ hostvars[groups['bastionhost'][0]]['ansible_host'] }}

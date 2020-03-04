@@ -5,17 +5,17 @@ auth --enableshadow --passalgo=sha512
 graphical
 # Run the Setup Agent on first boot
 firstboot --enable
-ignoredisk --only-use=sda
+ignoredisk --only-use={{ kvm_boot_device }}
 # Keyboard layouts
 keyboard --vckeymap=de --xlayouts='de'
 # System language
 lang en_US.UTF-8
 
 # Network information
-network  --bootproto=dhcp --device=enp1s0 --ipv6=auto --activate
+network  --bootproto=dhcp --device={{ kvm_interface }} --ipv6=auto --activate
 
 # Use network installation
-url --url="http://{{ hostvars['bastion']['ansible_host'] }}/RedHat-RHEL/8.1"
+url --url="http://{{ hostvars[groups['bastionhost'][0]]['ansible_host'] }}/RedHat-RHEL/8.1"
 # Root password
 rootpw --iscrypted $6$oMfUABOznmu.0Fco$tAOYuCgw0stq./H8xi5A2TwMIT4lJhXRj6OB/YID.RRtjBDHb09mDJyOYOGRq88Fd6XQOFVarxfkkMCwqCJ821
 sshkey --username=root "{{ anaconda_ssh_key }}"
@@ -23,12 +23,12 @@ sshkey --username=root "{{ anaconda_ssh_key }}"
 # System services
 services --enabled="chronyd"
 # System timezone
-timezone Europe/Berlin --isUtc --ntpservers={{ hostvars['bastion']['ansible_host'] }}
+timezone Europe/Berlin --isUtc --ntpservers={{ hostvars[groups['bastionhost'][0]]['ansible_host'] }}
 # System bootloader configuration
-bootloader --append=" crashkernel=auto" --location=mbr --boot-drive=sda
+bootloader --append=" crashkernel=auto" --location=mbr --boot-drive={{ kvm_boot_device }}
 autopart --type=lvm
 # Partition clearing information
-clearpart --all --initlabel --drives=sda,sdb
+clearpart --all --initlabel --drives={{ kvm_boot_device }}{% if kvm_image_device is defined %},{{ kvm_image_device }}{% endif %}
 reboot
 
 %packages

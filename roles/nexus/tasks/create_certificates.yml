@@ -1,0 +1,48 @@
+- set_facts:
+    cert_subj: "CN={{hostvars[groups['bastionhost'][0]]['ansible_host']}}.{{ ocp_cluster_name }}.{{ ocp_cluster_domain_name }}, OU=ocplabs, O={{ ocp_cluster_domain_name }}, C=DE"
+    san_dns: "{{hostvars[groups['bastionhost'][0]]['ansible_host']}}.{{ ocp_cluster_name }}.{{ ocp_cluster_domain_name }}"
+    san_ip: "{{hostvars[groups['bastionhost'][0]]['ansible_host']}}"
+- name: Create Self-Signed Certificate
+  shell:
+    cmd: "keytool -keystore /opt/nexus/etc/ssl/keystore.jks -alias jetty -genkey -keyalg RSA -storepass 'password' -keypass 'password' -dname \"{{ cert_subj }}\" -ext \"SAN=dns:{{ san_dns }},ip:{{ san_ip }}\""
+    creates: /opt/nexus/etc/ssl/keystore.jks
+- name: Create Certificate Signing Request
+  shell:
+    cmd: "keytool -certreq -alias jetty -keystore /opt/nexus/etc/ssl/keystore.jks -file /opt/nexus/etc/ssl/jetty.csr  -storepass 'password' -keypass 'password' -ext SAN=dns:{{ san_dns }},ip:{{ san_ip]}}"
+    creates: "/opt/nexus/etc/ssl/jetty.csr"
+- name: Create OpenSSL config
+  template:
+    src: openssl.j2
+    dest: "/opt/nexus/etc/ssl/openssl.conf"
+- name: Create CA Request key and certificate
+  shell:
+    cmd: "openssl req -new -keyout /opt/nexus/etc/ssl/cakey.pem -out /opt/nexus/etc/ssl/careq.pem -passout pass:password -subj \"/CN={{ san_dns }}/OU=ocplabs/O={{ ocp_cluster_domain_name }}/C=DE\""
+    creates: "/opt/nexus/etc/ssl/cakey.pem"
+- name: Create Root CA
+  shell:
+    cmd: "openssl x509 -signkey /opt/nexus/etc/ssl/cakey.pem -req -days 3650 -in /opt/nexus/etc/ssl/careq.pem -out /opt/nexus/etc/ssl/caroot.cer -extfile /opt/nexus/etc/ssl/openssl.conf -extensions v3_ca -passin pass:password"
+    creates: "/opt/nexus/etc/ssl/caroot.cer"
+- name: Create Serial
+  shell:
+    cmd: "echo 1234 > /opt/nexus/etc/ssl/serial.txt"
+    creates: "/opt/nexus/etc/ssl/serial.txt"
+- name: Create Jetty Test CA
+  shell:
+    cmd: "openssl x509 -CA /opt/nexus/etc/ssl/caroot.cer -CAkey /opt/nexus/etc/ssl/cakey.pem -CAserial /opt/nexus/etc/ssl/serial.txt -req -in /opt/nexus/etc/ssl/jetty.csr -out /opt/nexus/etc/ssl/JettyTestCA.cer -days 365 -extfile /opt/nexus/etc/ssl/openssl.conf -extensions req_ext -passin pass:password"
+    creates: "/opt/nexus/etc/ssl/JettyTestCA.cer"
+- name: Import Test CA into keystore
+  shell:
+    cmd: "keytool -import -alias TestCA -file /opt/nexus/etc/ssl/caroot.cer -keystore /opt/nexus/etc/ssl/keystore.jks -storepass 'password' -keypass 'password' -noprompt"
+- name: Import Jetty Test CA into keystore
+  shell:
+    cmd: "keytool -import -alias jetty -file /opt/nexus/etc/ssl/JettyTestCA.cer -keystore /opt/nexus/etc/ssl/keystore.jks -storepass 'password' -keypass 'password' -ext SAN=dns:{{ san_dns }},ip:{{ san_ip }}"
+- name: Extract Nexus certificate
+  shell:
+    cmd: "keytool -export -alias jetty -file /opt/nexus/etc/ssl/nexus.der -keystore /opt/nexus/etc/ssl/keystore.jks -storepass 'password'"
+    creates: "/opt/nexus/etc/ssl/nexus.der"
+- name: Convert Nexus certificate
+  shell:
+    cmd: "openssl x509 -inform der -in /opt/nexus/etc/ssl/nexus.der -out /etc/pki/ca-trust/source/anchors/nexus.crt"
+    creates: /etc/pki/ca-trust/source/anchors/nexus.crt
+- name: Update CA trust
+  shell: update-ca-trust extract

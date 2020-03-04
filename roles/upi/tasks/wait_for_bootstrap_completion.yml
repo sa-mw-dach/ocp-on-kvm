@@ -1,0 +1,1 @@
+- shell: "{{ ocp_home }}/bin/openshift-install --dir {{ ocp_home }}/{{ ocp_type }} wait-for bootstrap-complete"

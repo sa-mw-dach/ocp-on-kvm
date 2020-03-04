@@ -1,0 +1,12 @@
+- shell:
+    cmd: |
+      virsh destroy {{ item }}
+      virsh undefine {{ item  }} --nvram
+      rm -f /var/lib/libvirt/images/bootstrap*
+  delegate_to: "{{ hostvars[item]['kvm_host'] }}"
+  with_items: "{{ groups['bootstrap'] }}"
+- file:
+    path: /var/lib/libvirt/images/{{ item }}.img
+    state: absent
+  delegate_to: "{{ hostvars[item]['kvm_host'] }}"
+  with_items: "{{ groups['bootstrap'] }}" 

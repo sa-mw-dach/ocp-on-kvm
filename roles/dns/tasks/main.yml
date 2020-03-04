@@ -3,7 +3,7 @@
     line: "{{ hostvars[item]['ansible_host'] }} {{ hostvars[item]['inventory_hostname'] }}.{{ocp_cluster_name}}.{{ocp_cluster_domain_name}} {{ hostvars[item]['inventory_hostname'] }}"
     state: present
   with_flattened:
-  - "{{ groups['bastion'] }}"
+  - "{{ groups['bastionhost'] }}"
   - "{{ groups['kvm'] }}"
   - "{{ groups['masters'] }}"
   - "{{ groups['workers'] }}"

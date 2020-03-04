@@ -94,7 +94,7 @@ backend machineconfig
 
 frontend http
     log global
-    bind {{ hostvars['bastion']['ansible_host'] }}:80
+    bind {{ hostvars[groups['bastionhost'][0]]['ansible_host'] }}:80
     mode tcp
     acl is_openshift_router hdr(host) -m dom .apps.{{ocp_cluster_name}}.{{ocp_cluster_domain_name}}
     use_backend openshift_router_http if is_openshift_router
@@ -114,7 +114,7 @@ backend bastion_http
 
 frontend https
     log global
-    bind {{ hostvars['bastion']['ansible_host'] }}:443
+    bind {{ hostvars[groups['bastionhost'][0]]['ansible_host'] }}:443
     mode tcp
     option httplog
     tcp-request inspect-delay 5s
@@ -133,3 +133,19 @@ backend bastion_https
     log global
     mode tcp
     server bastion 127.0.0.1:8443
+
+{% if nexus_version is defined %}
+frontend docker_secure
+    log global
+    bind *:{{ nexus_docker_secure_port }}
+    mode tcp
+    option httplog
+    tcp-request inspect-delay 5s
+    tcp-request content accept if { req.ssl_hello_type 1 }
+    default_backend nexus_docker_secure
+
+backend nexus_docker_secure
+    log global
+    mode tcp
+    server bastion {{ hostvars[groups['bastionhost'][0]]['ansible_host'] }}:{{ nexus_docker_port }} check
+{% endif %}

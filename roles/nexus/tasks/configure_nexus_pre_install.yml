@@ -1,0 +1,22 @@
+- name: Create etc folder
+  file:
+    path: /opt/sonatype-work/nexus3/etc
+    state: directory
+- name: Copy nexus.properties
+  copy:
+    src: nexus.properties
+    dest: /opt/sonatype-work/nexus3/etc
+- name: Change Nexus install directory ownershirp
+  file:
+    path: /opt/nexus
+    owner: nexus
+    group: nexus
+    recurse: yes
+    state: directory
+- name: Change Nexus working directory ownership
+  file:
+    path: /opt/sonatype-work
+    owner: nexus
+    group: nexus
+    recurse: yes
+    state: directory
