@@ -1,0 +1,14 @@
+- name: Create systemd service
+  copy:
+    src: nexus.service
+    dest: /etc/systemd/system/nexus.service
+- name: Enable and start Nexus service
+  systemd:
+    name: nexus.service
+    state: started
+    enabled: yes
+- name: Create symlink to logs
+  file:
+    src: /opt/sonatype-work/nexus3/log
+    dest: /var/log/nexus
+    state: link

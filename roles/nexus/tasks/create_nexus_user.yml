@@ -1,0 +1,8 @@
+- name: Create nexus group
+  group:
+    name: nexus
+- name: Add the nexus user
+  user:
+    name: nexus
+    comment: Nexus
+    groups: nexus

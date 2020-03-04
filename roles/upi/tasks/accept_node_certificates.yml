@@ -1,0 +1,5 @@
+- shell: "{{ ocp_home }}/bin/oc get csr --kubeconfig={{ ocp_home }}/{{ ocp_type }}/auth/kubeconfig --no-headers=true | awk '{print $1}' | xargs {{ ocp_home }}/bin/oc adm certificate approve --kubeconfig={{ ocp_home }}/{{ ocp_type }}/auth/kubeconfig | wc -l"
+  register: certificate_approved_output
+  until: certificate_approved_output.stdout >= "{{ 2*(groups['masters'] | length + groups['workers'] | length) }}"
+  retries: 60
+  delay: 20

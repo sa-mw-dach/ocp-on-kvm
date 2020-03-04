@@ -1,0 +1,22 @@
+- name: Download Nexus
+  unarchive:
+    src: http://download.sonatype.com/nexus/3/nexus-{{ nexus_version }}-unix.tar.gz
+    dest: /opt
+    remote_src: yes
+- name: Create symlink for Nexus current version
+  file:
+    src: /opt/nexus-{{ nexus_version }}
+    dest: /opt/nexus
+    state: link
+- name: Delete existing Nexus files in etc directrory
+  file:
+    path: /opt/nexus/etc/ssl/{{ item }}
+    state: absent
+  with_items:
+  - keystore.jks
+  - jetty.csr
+  - openssl.conf
+  - cakey.pem
+  - caroot.cer
+  - serial.txt
+  - JettyTestCA.cer

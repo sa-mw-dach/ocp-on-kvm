@@ -1,0 +1,18 @@
+- yum:
+    name: jq
+    state: installed
+- shell:
+    cmd: echo -n "{{ nexus_admin_user }}:{{ nexus_admin_password }}" | base64 -w0
+  register: nexus_digest_output
+- set_fact:
+    nexus_digest: "{{ nexus_digest_output.stdout }}"
+- shell: "jq \'.auths += {\"{{ hostvars[groups['bastionhost'][0]]['ansible_host'] }}:{{ nexus_docker_secure_port }}\": {\"auth\": \"{{ nexus_digest }}\",\"email\": \"noemail@localhost\"}}\' < {{ ocp_home }}/pull-secrets.json > {{ ocp_home }}/pull-secrets-temp.json"
+- copy:
+    src: "{{ ocp_home }}/pull-secrets-temp.json"
+    dest: "{{ ocp_home }}/pull-secrets.json"
+- file:
+    path: "{{ ocp_home }}/pull-secrets-temp.json"
+    state: absent
+- shell: "{{ ocp_home }}/bin/oc adm release mirror -a {{ ocp_home }}/pull-secrets.json --from=quay.io/openshift-release-dev/ocp-release:{{ ocp_release }}-x86_64 --to-release-image={{ hostvars[groups['bastionhost'][0]]['ansible_host'] }}:{{ nexus_docker_secure_port }}/openshift-release-dev:{{ ocp_release }} --to={{ hostvars[groups['bastionhost'][0]]['ansible_host'] }}:{{ nexus_docker_secure_port }}/openshift-release-dev --insecure=true"
+  ignore_errors: yes
+  retries: 3

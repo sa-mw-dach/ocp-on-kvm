@@ -1,5 +1,7 @@
 - name: Include global variables
   include_vars: ../../common/defaults/main.yml
+- name: Include global variables
+  include_vars: ../../nexus/defaults/main.yml
 - name: Ensure haproxy is installed
   yum:
     name: haproxy
@@ -27,6 +29,26 @@
   with_items:
   - 6443
   - 22623
+- name: Enable HTTP service on port {{ nexus_docker_secure_port }} on firewalld
+  firewalld:
+    zone: public
+    port: "{{ item }}/tcp"
+    permanent: yes
+    immediate: yes
+    state: enabled
+  with_items:
+  - "{{ nexus_docker_secure_port }}"
+  when: nexus_version is defined
+- name: Allow HAProxy to listen on tcp port {{ nexus_docker_secure_port }} and {{ nexus_docker_port }}
+  seport:
+    ports: "{{ item }}"
+    proto: tcp
+    setype: http_port_t
+    state: present
+  with_items:
+  - "{{ nexus_docker_secure_port }}"
+  - "{{ nexus_docker_port }}"
+  when: nexus_version is defined
 - name: restart haproxy
   systemd:
     name: haproxy

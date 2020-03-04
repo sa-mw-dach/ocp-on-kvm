@@ -1,0 +1,21 @@
+- name: Enable Nexus Port (Port {{ nexus_port }}, public zone) firewalld
+  firewalld:
+    port: "{{ nexus_port }}/tcp"
+    zone: public
+    permanent: yes
+    immediate: yes
+    state: enabled
+- name: Enable Container Registry (Port {{ nexus_docker_port }}, internal zone) firewalld
+  firewalld:
+    port: "{{ nexus_docker_port }}/tcp"
+    zone: internal
+    permanent: yes
+    immediate: yes
+    state: enabled
+- name: Enable Container Registry (Port {{ nexus_docker_port }}, public zone) firewalld
+  firewalld:
+    port: "{{ nexus_docker_port }}/tcp"
+    zone: public
+    permanent: yes
+    immediate: yes
+    state: enabled

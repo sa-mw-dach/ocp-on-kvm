@@ -1,0 +1,5 @@
+- name: Gather services facts
+  service_facts:
+- name: Include Nexus tasks
+  include_tasks: setup_nexus.yml
+  when: nexus_version is defined and not ansible_facts.services['nexus.service'].state == 'running'

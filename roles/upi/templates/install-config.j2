@@ -1,0 +1,44 @@
+apiVersion: v1
+baseDomain: {{ ocp_cluster_domain_name }}
+{% if squid_install is defined %}
+proxy:
+  httpProxy: http://{{ hostvars[groups['bastionhost'][0]]['ansible_host'] }}:3128 
+  httpsProxy: http://{{ hostvars[groups['bastionhost'][0]]['ansible_host'] }}:3128 
+{% endif %}
+compute:
+- hyperthreading: {{ worker_node_cpu_hyperthreading }} 
+  name: worker
+  platform: {}
+  replicas: 0
+controlPlane:
+  hyperthreading: {{ master_node_cpu_hyperthreading }}
+  name: master
+  platform: {}
+  replicas: {{ groups['masters'] | length }}
+metadata:
+  name: {{ ocp_cluster_name }}
+networking:
+  clusterNetwork:
+  - cidr: {{ ocp_network_cluster_cidr }} 
+    hostPrefix: {{ ocp_network_cluster_hostprefix }} 
+  machineCIDR: {{ ocp_network_machine_cidr }}
+  networkType: {{ ocp_network_type }}
+  serviceNetwork:
+  - {{ ocp_network_service_network }}
+platform:
+  none: {}
+{% if ocp_install_type == 'disconnected' %}
+imageContentSources:
+- mirrors:
+  - {{ hostvars[groups['bastionhost'][0]]['ansible_host'] }}:{{ nexus_docker_secure_port }}/openshift-release-dev
+  source: quay.io/openshift-release-dev/ocp-release
+- mirrors:
+  - {{ hostvars[groups['bastionhost'][0]]['ansible_host'] }}:{{ nexus_docker_secure_port }}/openshift-release-dev
+  source: quay.io/openshift-release-dev/ocp-v4.0-art-dev
+pullSecret: '{"auths":{"{{ hostvars[groups['bastionhost'][0]]['ansible_host'] }}": {"auth": "{{ nexus_digest }}","email": "noemail@localhost"}}}'
+additionalTrustBundle: |
+{{ additional_trustbundle }}
+{% else %}
+pullSecret: '{{ pull_secrets }}'
+{% endif %}
+sshKey: "{{ ssh_key }}" 

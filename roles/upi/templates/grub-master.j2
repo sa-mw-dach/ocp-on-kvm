@@ -1,0 +1,13 @@
+default=0
+timeout=5
+
+menuentry 'Install Red Hat CoreOS for OpenShift {{ ocp_release }} (Master)' --class fedora --class gnu-linux --class gnu --class os {
+        insmod net
+        insmod tftp
+        set net_default_server={{ hostvars[groups['bastionhost'][0]]['ansible_host'] }}
+        net_bootp
+        echo 'Loading Linux ...'
+        linuxefi (tftp)/images/RedHat-CoreOS/vmlinuz ip=dhcp console=tty0 console=ttyS0 rd.neednet=1 nameserver={{ hostvars[groups['bastionhost'][0]]['ansible_host'] }} coreos.inst=yes coreos.inst.install_dev=vda coreos.inst.image_url=http://{{ hostvars[groups['bastionhost'][0]]['ansible_host'] }}/RedHat-CoreOS/rhcos-metal.raw.gz coreos.inst.ignition_url=http://{{ hostvars[groups['bastionhost'][0]]['ansible_host'] }}/RedHat-CoreOS/master.ign consoleblank=0
+        echo 'Loading initial ramdisk ...'
+        initrdefi (tftp)/images/RedHat-CoreOS/initramfs.img
+}

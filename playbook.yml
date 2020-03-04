@@ -1,16 +1,22 @@
-- hosts: bastion
+- hosts: bastionhost
   roles:
   - dns
   - ntp
   - tftp
   - dhcp
   - httpd
+  - rsyslog
   - haproxy
-  - { role: kvm-iso, when: kvm_install == 'pxe' }
-  - { role: kvm-grub, when: kvm_install == 'pxe' }
+  - { role: squid, when: squid_install }
+  - nexus
+  - { role: kvm-iso, when: kvm_install_type == 'pxe' }
+  - { role: kvm-grub, when: kvm_install_type == 'pxe' }
 - hosts: kvm
   roles:
   - kvm
   - kvm-cleanup
   - { role: kvm-share, when: kvm_image_device is defined }
   - { role: kvm-bridge, when: kvm_network_mode == 'bridge' }
+- hosts: bastionhost
+  roles:
+  - upi

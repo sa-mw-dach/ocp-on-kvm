@@ -1,0 +1,18 @@
+- name: Install Java
+  include_tasks: install_java.yml
+- name: Create Nexus user
+  include_tasks: create_nexus_user.yml
+- name: Create Nexus Detached Storage
+  include_tasks: create_detached_storage.yml
+- name: Download Nexus
+  include_tasks: download_nexus.yml
+- name: Create Certificates:
+  include_tasks: create_certificates.yml
+- name: Configure Nexus (Pre-Install)
+  include_tasks: configure_nexus_pre_install.yml
+- name: Configure Firewall
+  include_tasks: configure_firewall.yml
+- name: Create Nexus service
+  include_tasks: create_nexus_service.yml
+- name: Configure Nexus (Post-Install)
+  include_tasks: configure_nexus_post_install.yml

@@ -1,0 +1,3 @@
+- pause:
+    minutes: 1
+- shell: "{{ ocp_home }}/bin/oc patch configs.imageregistry.operator.openshift.io/cluster --type merge --patch '{\"spec\":{\"storage\":{\"nfs\":{\"path\":\"/image-registry\",\"server\":\"{{ hostvars[groups['bastionhost'][0]]['ansible_host'] }}\"}}}}' --kubeconfig={{ ocp_home }}/{{ ocp_type }}/auth/kubeconfig"
