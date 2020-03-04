@@ -18,7 +18,8 @@ Though different approaches exist addressing an automated OpenShift installation
 ## General Setup
 
 ### Prerequisites
-  * You need to have access to the Red Hat Enterprise Linux (RHEL) binaries.
+  * Root access to your machine.
+  * You need to have access to the Red Hat Enterprise Linux (RHEL) binaries. E.g. head over to [Red Hat Developers](https://developers.redhat.com/) and create an account.
   * Ansible 2.8++.
   * Terminal access.
 
@@ -35,7 +36,7 @@ Though different approaches exist addressing an automated OpenShift installation
 git clone https://github.com/sa-mw-dach/ocp-on-kvm.git
 cd ocp-on-kvm
 ``
-  1. Login to RHN and download the RHEL 8.1 ISO image from https://access.redhat.com/downloads/content/479/ver=/rhel---8/8.1/x86_64/product-software
+  1. Login to RHN and download the RHEL 8.1 Boot ISO image from https://access.redhat.com/downloads/content/479/ver=/rhel---8/8.1/x86_64/product-software and place it under ``/root``, e.g. ``/root/rhel-8.1-x86_64-boot.iso``
   1. Create an individual SSH-Key  
 ``
 ssh-keygen -q -t rsa -f /root/.ssh/id_ocplabs -C "" -N ""
