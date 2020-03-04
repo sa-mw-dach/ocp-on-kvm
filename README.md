@@ -1,5 +1,38 @@
 # OCP on KVM
 
+* [OCP on KVM](#ocp-on-kvm)
+      * [Purpose](#purpose)
+      * [Design Principles](#design-principles)
+      * [General Setup](#general-setup)
+         * [Prerequisites](#prerequisites)
+         * [Basic Steps I: What is done?](#basic-steps-i-what-is-done)
+         * [Basic Steps II: What do you need to do?](#basic-steps-ii-what-do-you-need-to-do)
+         * [Target Architecture](#target-architecture)
+         * [Tasks](#tasks)
+            * [Setup KVM on RHEL 8.1](#setup-kvm-on-rhel-81)
+            * [Setup DNS](#setup-dns)
+            * [Setup NTP](#setup-ntp)
+            * [Setup DHCP](#setup-dhcp)
+            * [Setup TFTP](#setup-tftp)
+            * [Setup PXE-Boot for KVM](#setup-pxe-boot-for-kvm)
+            * [(Optional) Add Bridging](#optional-add-bridging)
+            * [Uodate Firewall](#uodate-firewall)
+            * [Setup HTTP Server](#setup-http-server)
+            * [Setup HA Proxy](#setup-ha-proxy)
+            * [(Optional) Setup Outbound Proxy](#optional-setup-outbound-proxy)
+            * [(Optional) Setup Docker Repository (f.e. Nexus) for Detached Install](#optional-setup-docker-repository-fe-nexus-for-detached-install)
+            * [Stage and Extract Client and Installer](#stage-and-extract-client-and-installer)
+            * [Stage Secret](#stage-secret)
+            * [Setup Ignition Config](#setup-ignition-config)
+            * [Create Ignition Config with Installer](#create-ignition-config-with-installer)
+            * [Copy Ignition Configs to HTTP Folder](#copy-ignition-configs-to-http-folder)
+            * [Start Bootstrap](#start-bootstrap)
+            * [Install and Customize all VMs](#install-and-customize-all-vms)
+            * [virsh start VMs](#virsh-start-vms)
+            * [Add Worker Nodes](#add-worker-nodes)
+         * [Reference, Inspiration, Links](#reference-inspiration-links)
+         * [TO DO/WIP](#to-dowip)
+
 ## Purpose
 In the wild, libvirt/KVM based OpenShift installations are used for development, demo, PoC, and other, normally non-productive, purposes (see [the official installer documentation](https://github.com/openshift/installer/tree/master/docs/dev/libvirt])). 
 
