@@ -83,14 +83,19 @@ The following paragraphs give an overview of the individual steps needed to setu
 KVM/libvirt installation needed for running the OpenShift cluster. Deep explanation of many steps needed to be done can be found in the [official OpenShift installer documentation](https://github.com/openshift/installer/tree/master/docs/dev/libvirt).
 
 #### Setup DNS  
+Installed unconditionally.
 
 #### Setup NTP  
+Installed unconditionally.
 
 #### Setup DHCP  
+Installed unconditionally.
 
 #### Setup TFTP  
+Installed unconditionally.
 
-#### Setup PXE-Boot  
+#### Setup PXE-Boot for KVM  
+Check the `ìnventory``file if your setup needs the various ``kvm_`` parameters.
 
 #### (Optional) Add Bridging  
 
