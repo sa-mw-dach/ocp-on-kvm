@@ -1,0 +1,92 @@
+[ocp:children]
+bastionhost
+kvm
+masters
+workers
+bootstrap
+
+[ocp:vars]
+ansible_python_interpreter=/usr/libexec/platform-python
+host_key_checking = False
+ansible_ssh_private_key_file=~/.ssh/id_ocplabs
+ansible_ssh_user=root
+ocp_home=/root/ocp4
+ocp_release=4.3.3
+ocp_release_name=ocp-release
+ocp_type=bare-metal
+ocp_cluster_name=ocp4
+ocp_cluster_domain_name=ocplabs.com
+rhcos_release=4.3.0
+
+ocp_install_type=disconnected
+ocp_network_cluster_cidr="<ocp_network_cluster_cidr>"
+ocp_network_cluster_hostprefix="<ocp_network_cluster_hostprefix>"
+ocp_network_machine_cidr="<ocp_network_machine_cidr>"
+ocp_network_service_network="<ocp_network_service_network>"
+# Taken from https://cloud.redhat.com/openshift/token
+ocp_offline_access_token=<ocp_offline_access_token>
+
+dhcp_subnet="<dhcp-subnet>"
+dhcp_subnet_mask="<dhcp-subnet-mask>"
+dhcp_routers="<dhcp-router>"
+dhcp_range="<dhcp-range>"
+dhcp_public_dns="<dhcp-public-dns>"
+
+kvm_install_type=pxe
+kvm_interface=<kvm_interface>
+kvm_boot_device=sda
+kvm_image_device=sdb
+kvm_network_mode=bridge
+
+squid_install=True
+
+nexus_version=3.20.1-01
+
+[all]
+bastion ansible_host=<ip> ethernet="<mac>"
+kvm01 ansible_host=<ip> ethernet="<mac>" systemid=<system-id>
+kvm02 ansible_host=<ip> ethernet="<mac>" systemid=<system-id> 
+kvm03 ansible_host=<ip> ethernet="<mac>" systemid=<system-id>
+kvm04 ansible_host=<ip> ethernet="<mac>" systemid=<system-id>
+master01 ansible_host=<ip> ethernet="<mac>" kvm_host=kvm01
+master02 ansible_host=<ip> ethernet="<mac>" kvm_host=kvm02
+master03 ansible_host=<ip> ethernet="<mac>" kvm_host=kvm03
+worker01 ansible_host=<ip> ethernet="<mac>" kvm_host=kvm01
+worker02 ansible_host=<ip> ethernet="<mac>" kvm_host=kvm01
+worker03 ansible_host=<ip> ethernet="<mac>" kvm_host=kvm02
+worker04 ansible_host=<ip> ethernet="<mac>" kvm_host=kvm02
+worker05 ansible_host=<ip> ethernet="<mac>" kvm_host=kvm03
+worker06 ansible_host=<ip> ethernet="<mac>" kvm_host=kvm03
+worker07 ansible_host=<ip> ethernet="<mac>" kvm_host=kvm04
+worker08 ansible_host=<ip> ethernet="<mac>" kvm_host=kvm04
+worker09 ansible_host=<ip> ethernet="<mac>" kvm_host=kvm04
+
+[bastionhost]
+bastion
+
+[kvm]
+kvm01
+kvm02
+kvm03
+kvm04
+
+[masters]
+master01
+master02
+master03
+
+[workers]
+worker01
+worker02
+worker03
+worker04
+worker05
+worker06
+worker07
+worker08
+worker09
+
+[storage]
+
+[bootstrap]
+worker09
