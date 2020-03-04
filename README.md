@@ -76,7 +76,7 @@ The target architecture consists of the Bootstrap 1..3..5..n Master and 1..n Wor
 See this basic archictural diagram: ![High Level Architecture](/documentation/images/general_architecture.png).
 
 ### Tasks
-The following paragraphs give an overview of the individual steps needed to setup the OpenShift cluster.
+The following paragraphs give an overview of the individual steps needed to setup the OpenShift cluster. These tasks are fully automated.
 
 #### Setup KVM on RHEL 8.1
 
@@ -151,6 +151,7 @@ From [@jcordes73](https://github.com/jcordes73) - target platform is his famous 
 From [@elajoie](https://github.com/elajoie) - derived from practical field work.
 
 ### TO DO/WIP
+Contributions welcome!
 
-  * Make RHEL DVD iso file placement configurable.
+  * Make RHEL DVD iso file placement configurable. (Unfortunately it doesn't seem possible automating the download).
   * Make a pre-check of your configuration.
