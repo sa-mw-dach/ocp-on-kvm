@@ -31,39 +31,44 @@ Though different approaches exist addressing an automated OpenShift installation
 
 ### Basic Steps II: What do you need to do?
 
-  1. Clone this repository (or make a fork: contributions welcome!):  
-``
+1. Clone this repository (or make a fork: contributions welcome!):  
+````
 git clone https://github.com/sa-mw-dach/ocp-on-kvm.git
 cd ocp-on-kvm
-``
-  1. Login to RHN and download the RHEL 8.1 Boot ISO image from https://access.redhat.com/downloads/content/479/ver=/rhel---8/8.1/x86_64/product-software and place it under ``/root``, e.g. ``/root/rhel-8.1-x86_64-boot.iso``
-  1. Create an individual SSH-Key  
+````  
+
+2. Login to RHN and download the RHEL 8.1 Boot ISO image from https://access.redhat.com/downloads/content/479/ver=/rhel---8/8.1/x86_64/product-software and place it under ``/root``, e.g. ``/root/rhel-8.1-x86_64-boot.iso``
+
+3. Create an individual SSH-Key  
 ````
 ssh-keygen -q -t rsa -f /root/.ssh/id_ocplabs -C "" -N ""
-````  
-  1. Create an [Ansible vault](https://docs.ansible.com/ansible/latest/user_guide/vault.html) file.  
-``
+````
+
+4. Create an [Ansible vault](https://docs.ansible.com/ansible/latest/user_guide/vault.html) file.  
+````
 touch group_vars/all/vault.yml
-``  
+````
 Put in this information and replace the placeholders ``<rhn-user>`` and ``<rhn-password>``:  
-``
+````
 vault_rhn_user: <rhn-user>
 vault_rhn_password: <rhn-password>
-``  
+````
 and encrypt it:  
-``
+````
 ansible-vault encrypt group_vars/all/vault.yml
-``  
+````
 Make sure you can remember the password given as you'll need it later.  
-  1. Create an inventory file.  
-``
+
+5. Create an inventory file.  
+````
 touch inventory
-``  
+````
 Add content to the inventory file according to your infrastructure setup. You can find an [example inventory file here](https://raw.githubusercontent.com/sa-mw-dach/ocp-on-kvm/documentation-kg/documentation/example-files/inventory-example).
-  1. Run the playbook  
-``
+
+6. Run the playbook  
+````
 ansible-playbook -vvv --ask-vault-pass -i inventory playbook.yml > ansible.log 2>&1
-``
+````
 
 ### Target Architecture
 The target architecture consists of the Bootstrap 1..3..5..n Master and 1..n Worker (aka Compute) nodes. Supportive functionality (DNS, DHCP) is provisioned on the Bootstrap node.
