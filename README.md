@@ -120,7 +120,27 @@ Needed if you want to simulate real life settings (like in TelCo) where all traf
 squid_install=True
 ``
 
-#### Setup Docker Repository (f.e. Nexus) for Detached Install  
+in the ``inventory`` file.
+
+#### (Optional) Setup Docker Repository (f.e. Nexus) for Detached Install  
+Nexus will be installed if you set
+
+``
+ocp_install_type=disconnected
+``
+
+*and*
+
+``
+nexus_version=<your-nexus-version>
+``
+
+e.g.
+
+``
+nexus_version=3.20.1-01
+``.
+
 
 #### Stage and Extract Client and Installer  
 
