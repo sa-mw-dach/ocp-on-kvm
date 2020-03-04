@@ -40,7 +40,7 @@ cd ocp-on-kvm
 ``
 ssh-keygen -q -t rsa -f /root/.ssh/id_ocplabs -C "" -N ""
 ``  
-  1. Create an [Ansible vault](https://docs.ansible.com/ansible/latest/user_guide/vault.html) file.
+  1. Create an [Ansible vault](https://docs.ansible.com/ansible/latest/user_guide/vault.html) file.  
 ``
 touch group_vars/all/vault.yml
 ``  
