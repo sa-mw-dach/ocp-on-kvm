@@ -29,14 +29,14 @@ You need to have access to the Red Hat Enterprise Linux (RHEL) binaries.
 ### Basic Steps II: What do you need to do?
 
   1. Clone this repository (or make a fork: contributions welcome!):  
-```
+``
 git clone https://github.com/sa-mw-dach/ocp-on-kvm.git
-```
+``
   1. Create your inventory file.
   1. Run the playbook  
-```
+``
 ansible-playbook -vvv --ask-vault-pass -i inventory playbook.yml > ansible.log 2>&1
-```
+``
 
 ### Target Architecture
 The target architecture consists of the Bootstrap 1..3..5..n Master and 1..n Worker (aka Compute) nodes. Supportive functionality (DNS, DHCP) is provisioned on the Bootstrap node.
