@@ -221,6 +221,6 @@ From [@elajoie](https://github.com/elajoie) - derived from practical field work.
 ### TO DO/WIP
 Contributions welcome!
 
-  * Stage secret automatically.
+  * Stage secret automatically (see [here](#stage-secret)).
   * Make RHEL DVD iso file placement configurable. (Unfortunately it doesn't seem possible automating the download).
   * Make a pre-check of your configuration.
