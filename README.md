@@ -37,7 +37,7 @@ git clone https://github.com/sa-mw-dach/ocp-on-kvm.git
 cd ocp-on-kvm
 ````  
 
-2. Login to RHN and download the RHEL 8.1 Boot ISO image from https://access.redhat.com/downloads/content/479/ver=/rhel---8/8.1/x86_64/product-software and place it under ``/root``, e.g. ``/root/rhel-8.1-x86_64-boot.iso``
+2. Login to RHN and download the RHEL 8.1 DVD image from https://access.redhat.com/downloads/content/479/ver=/rhel---8/8.1/x86_64/product-software and place it under ``/root``, e.g. ``/root/rhel-8.1-x86_64-dvd.iso``
 
 3. Create an individual SSH-Key  
 ````
@@ -152,5 +152,5 @@ From [@elajoie](https://github.com/elajoie) - derived from practical field work.
 
 ### TO DO/WIP
 
-  * Automate DVD download and make placement configurable.
+  * Make RHEL DVD iso file placement configurable.
   * Make a pre-check of your configuration.
