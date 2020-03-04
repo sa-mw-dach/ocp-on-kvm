@@ -152,5 +152,5 @@ From [@elajoie](https://github.com/elajoie) - derived from practical field work.
 
 ### TO DO/WIP
 
-  * NN
-  * NN
+  * Automate DVD download and make placement configurable.
+  * Make a pre-check of your configuration.
