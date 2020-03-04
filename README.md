@@ -38,9 +38,9 @@ cd ocp-on-kvm
 ``
   1. Login to RHN and download the RHEL 8.1 Boot ISO image from https://access.redhat.com/downloads/content/479/ver=/rhel---8/8.1/x86_64/product-software and place it under ``/root``, e.g. ``/root/rhel-8.1-x86_64-boot.iso``
   1. Create an individual SSH-Key  
-``
+````
 ssh-keygen -q -t rsa -f /root/.ssh/id_ocplabs -C "" -N ""
-``  
+````  
   1. Create an [Ansible vault](https://docs.ansible.com/ansible/latest/user_guide/vault.html) file.  
 ``
 touch group_vars/all/vault.yml
