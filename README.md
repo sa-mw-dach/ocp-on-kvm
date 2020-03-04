@@ -38,7 +38,7 @@ git clone https://github.com/sa-mw-dach/ocp-on-kvm.git
 ``
 touch inventory
 ``
-Add content to the inventory file according to your infrastructure setup. You can find an [example inventory file here](/documentation/example-files/invetory-example).
+Add content to the inventory file according to your infrastructure setup. You can find an [example inventory file here](documentation/example-files/inventory-example).
   1. Run the playbook  
 ``
 ansible-playbook -vvv --ask-vault-pass -i inventory playbook.yml > ansible.log 2>&1
