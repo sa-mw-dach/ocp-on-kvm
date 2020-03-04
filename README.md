@@ -33,6 +33,7 @@ Though different approaches exist addressing an automated OpenShift installation
   1. Clone this repository (or make a fork: contributions welcome!):  
 ``
 git clone https://github.com/sa-mw-dach/ocp-on-kvm.git
+cd ocp-on-kvm
 ``
   1. Login to RHN and download the RHEL 8.1 ISO image from https://access.redhat.com/downloads/content/479/ver=/rhel---8/8.1/x86_64/product-software
   1. Create an individual SSH-Key  
@@ -51,8 +52,6 @@ vault_rhn_password: <rhn-password>
 ``
 ansible-vault encrypt group_vars/all/vault.yml
 ``  Make sure you can remember the password given as you'll need it later.
-
-
   1. Create an inventory file.  
 ``
 touch inventory
