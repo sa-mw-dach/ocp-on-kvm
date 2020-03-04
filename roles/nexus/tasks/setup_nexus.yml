@@ -6,7 +6,7 @@
   include_tasks: create_detached_storage.yml
 - name: Download Nexus
   include_tasks: download_nexus.yml
-- name: Create Certificates:
+- name: Create Certificates
   include_tasks: create_certificates.yml
 - name: Configure Nexus (Pre-Install)
   include_tasks: configure_nexus_pre_install.yml
