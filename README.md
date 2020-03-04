@@ -19,7 +19,7 @@ Though different approaches exist addressing an automated OpenShift installation
 
 ### Prerequisites
   * You need to have access to the Red Hat Enterprise Linux (RHEL) binaries.
-  * Ansible 2.8++
+  * Ansible 2.8++.
   * Terminal access.
 
 ### Basic Steps I: What is done?
@@ -34,10 +34,29 @@ Though different approaches exist addressing an automated OpenShift installation
 ``
 git clone https://github.com/sa-mw-dach/ocp-on-kvm.git
 ``
-  1. Create your inventory file.  
+  1. Login to RHN and download the RHEL 8.1 ISO image from https://access.redhat.com/downloads/content/479/ver=/rhel---8/8.1/x86_64/product-software
+  1. Create an individual SSH-Key  
+``
+ssh-keygen -q -t rsa -f /root/.ssh/id_ocplabs -C "" -N ""
+``  
+  1. Create an [Ansible vault](https://docs.ansible.com/ansible/latest/user_guide/vault.html) file.
+``
+touch group_vars/all/vault.yml
+``  
+Put in this information and replace the placeholders ``<rhn-user>`` and ``<rhn-password>``:  
+``
+vault_rhn_user: <rhn-user>
+vault_rhn_password: <rhn-password>
+``  and encrypt it:
+``
+ansible-vault encrypt group_vars/all/vault.yml
+``  Make sure you can remember the password given as you'll need it later.
+
+
+  1. Create an inventory file.  
 ``
 touch inventory
-``
+``  
 Add content to the inventory file according to your infrastructure setup. You can find an [example inventory file here](documentation/example-files/inventory-example).
   1. Run the playbook  
 ``
