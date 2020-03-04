@@ -30,8 +30,8 @@
         * [Install and Customize all VMs](#install-and-customize-all-vms)  
         * [virsh start VMs](#virsh-start-vms)  
         * [Add Worker Nodes](#add-worker-nodes)  
-    * [Reference, Inspiration, Links](#reference-inspiration-links)  
-    * [TO DO/WIP](#to-dowip)  
+  * [Reference, Inspiration, Links](#reference-inspiration-links)  
+  * [TO DO/WIP](#to-dowip)  
 
 ## Purpose
 In the wild, libvirt/KVM based OpenShift installations are used for development, demo, PoC, and other, normally non-productive, purposes (see [the official installer documentation](https://github.com/openshift/installer/tree/master/docs/dev/libvirt])). 
