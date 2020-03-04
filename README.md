@@ -139,7 +139,9 @@ e.g.
 
 ``
 nexus_version=3.20.1-01
-``.
+``
+
+in the ``inventory`` file.
 
 #### Stage and Extract Client and Installer  
 Done automatically.
