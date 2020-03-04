@@ -105,12 +105,20 @@ kvm_network_mode=bridge
 in your ``ìnventory`` file.
 
 #### Uodate Firewall  
+Done unconditionally where needed.
 
 #### Setup HTTP Server  
+Installed unconditionally.
 
 #### Setup HA Proxy  
+Installed unconditionally.
 
-#### Setup Outbound Proxy  
+#### (Optional) Setup Outbound Proxy  
+Needed if you want to simulate real life settings (like in TelCo) where all traffic is proxied. Done via
+
+``
+squid_install=True
+``
 
 #### Setup Docker Repository (f.e. Nexus) for Detached Install  
 
