@@ -224,3 +224,5 @@ Contributions welcome!
   * Stage secret automatically (see [here](#stage-secret)).
   * Make RHEL DVD iso file placement configurable. (Unfortunately it doesn't seem possible automating the download).
   * Make a pre-check of your configuration.
+  * Add the NFS role for the bastion node.
+  * Configure/setup OpenShift Container Storage.
