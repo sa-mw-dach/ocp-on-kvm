@@ -20,19 +20,28 @@ Though different approaches exist addressing an automated OpenShift installation
 ### Prerequisites
 You need to have access to the Red Hat Enterprise Linux (RHEL) binaries.
 
-### Basic Steps
+### Basic Steps I: What is done?
 
   1. KVM gets installed and set up.
   1. Based on an _Inventory_ file, a single KVM node ("Bootstrap" node) is created for further deployment of the cluster).
   1. When the bootstrap node is up, it is used to create the cluster nodes.
 
+### Basic Steps II: What do you need to do?
+
+  1. Clone this repository (or make a fork: contributions welcome!):  
+```
+git clone https://github.com/sa-mw-dach/ocp-on-kvm.git
+```
+  1. Create your inventory file.
+  1. Run the playbook  
+```
+ansible-playbook -vvv --ask-vault-pass -i inventory playbook.yml > ansible.log 2>&1
+```
 
 ### Target Architecture
-
 The target architecture consists of the Bootstrap 1..3..5..n Master and 1..n Worker (aka Compute) nodes. Supportive functionality (DNS, DHCP) is provisioned on the Bootstrap node.
 
 See this basic archictural diagram: ![High Level Architecture](/documentation/images/general_architecture.png).
-
 
 ### Tasks
 The following paragraphs give an overview of the individual steps needed to setup the OpenShift cluster.
@@ -41,47 +50,47 @@ The following paragraphs give an overview of the individual steps needed to setu
 
 KVM/libvirt installation needed for running the OpenShift cluster. Deep explanation of many steps needed to be done can be found in the [official OpenShift installer documentation](https://github.com/openshift/installer/tree/master/docs/dev/libvirt).
 
-#### Setup DNS
+#### Setup DNS  
 
-#### Setup NTP
+#### Setup NTP  
 
-#### Setup DHCP
+#### Setup DHCP  
 
-#### Setup TFTP
+#### Setup TFTP  
 
-#### Setup PXE-Boot
+#### Setup PXE-Boot  
 
-#### (Optional) Add Bridging
+#### (Optional) Add Bridging  
 
-#### Uodate Firewall 
+#### Uodate Firewall  
 
-#### Setup HTTP Server 
+#### Setup HTTP Server  
 
-#### Setup HA Proxy
+#### Setup HA Proxy  
 
-#### Setup Outbound Proxy
+#### Setup Outbound Proxy  
 
-#### Setup Docker Repository (f.e. Nexus) for Detached Install
+#### Setup Docker Repository (f.e. Nexus) for Detached Install  
 
-#### Stage and Extract Client and Installer
+#### Stage and Extract Client and Installer  
 
-#### Stage Secret
+#### Stage Secret  
 
-#### Setup Ignition Config
+#### Setup Ignition Config  
 
-#### Create Ignition Config with Installer
+#### Create Ignition Config with Installer  
 
-#### Copy Ignition Configs to HTTP Folder
+#### Copy Ignition Configs to HTTP Folder  
 
-#### Start Bootstrap
+#### Start Bootstrap  
 
-#### Install and Customize all VMs
+#### Install and Customize all VMs  
 
-#### virsh start VMs
+#### virsh start VMs  
 
-#### Add Worker Nodes
+#### Add Worker Nodes  
 
-### Reference, Inspiration, Links
+### Reference, Inspiration, Links  
 In open source, you always stand on the shoulders of giants, so do we.
 
 
