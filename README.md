@@ -141,24 +141,32 @@ e.g.
 nexus_version=3.20.1-01
 ``.
 
-
 #### Stage and Extract Client and Installer  
+Done automatically.
 
 #### Stage Secret  
+Still on the to-do list, see below. Contributions welcome!
 
 #### Setup Ignition Config  
+Done automatically.
 
 #### Create Ignition Config with Installer  
+Done automatically.
 
 #### Copy Ignition Configs to HTTP Folder  
+Done automatically.
 
 #### Start Bootstrap  
+Done automatically.
 
 #### Install and Customize all VMs  
+Done automatically.
 
 #### virsh start VMs  
+Done automatically.
 
 #### Add Worker Nodes  
+Done automatically.
 
 ### Reference, Inspiration, Links  
 In open source, you always stand on the shoulders of giants, so do we.
@@ -191,5 +199,6 @@ From [@elajoie](https://github.com/elajoie) - derived from practical field work.
 ### TO DO/WIP
 Contributions welcome!
 
+  * Stage secret automatically.
   * Make RHEL DVD iso file placement configurable. (Unfortunately it doesn't seem possible automating the download).
   * Make a pre-check of your configuration.
