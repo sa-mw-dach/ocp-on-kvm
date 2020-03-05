@@ -1,4 +1,27 @@
+- stat: path=/var/www/html/RedHat-RHEL/8.1/images/pxeboot/initrd.img
+  register: initramfs_stat_result
+  when: '"bastionhost" in group_names and kvm_install_type == "pxe"'
+- name: Mount RHEL 8.1 ISO and copy contents to HTTP server
+  import_tasks: provide_iso.yml
+  when: '"bastionhost" in group_names and kvm_install_type == "pxe" and not initramfs_stat_result.stat.exists'
+- name: Create Grub configuration for KVM Nodes
+  import_tasks: create_grub_configuration.yml
+  when: '"bastionhost" in group_names and kvm_install_type == "pxe"'
+- name: Boot KVM Hosts via Wake-On-LAN
+  import_tasks: boot_wake_on_lan.yml
+  when: '"kvm" in group_names and kvm_boot_type == "wake-on-lan"'
 - name: Provision libvirt on KVM Host
   import_tasks: provision_libvirt.yml
+  when: '"kvm" in group_names'
 - name: sysctl settings
   import_tasks: sysctl.yml
+  when: '"kvm" in group_names'
+- name: Remove all existing nodes
+  import_tasks: remove_all_nodes.yml
+  when: '"kvm" in group_names'
+- name: Create share for VMs
+  import_tasks: create_kvm_share.yml
+  when: '"kvm" in group_names and kvm_image_device is defined'
+- name: Bridge setup
+  import_tasks: create_bridge.yml
+  when: '"kvm" in group_names and kvm_network_mode == "bridge"'

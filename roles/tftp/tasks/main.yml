@@ -19,14 +19,30 @@
   file:
     path: /var/lib/tftpboot/images/RHEL-8.1
     state: directory
+- name: Get Kernel-Version
+  shell: "uname -a | awk '{print $3}'"
+  register: kernel_version_output
+- set_fact:
+    kernel_version: "{{ kernel_version_output.stdout }}"
+    rescue_version: "7ca6a81ae90949bd8877dd35c8addf45"
 - name: Copy vmlinuz
   copy:
-    src: /boot/vmlinuz-4.18.0-147.el8.x86_64
+    src: "/boot/vmlinuz-{{ kernel_version }}"
     dest: /var/lib/tftpboot/images/RHEL-8.1/vmlinuz
-- name: Copy initrd
+- name: Copy initramfs
   copy:
-    src: /boot/initramfs-4.18.0-147.el8.x86_64.img
-    dest: /var/lib/tftpboot/images/RHEL-8.1/initrd.img
+    src: "/boot/initramfs-{{ kernel_version }}.img"
+    dest: /var/lib/tftpboot/images/RHEL-8.1/initramfs.img
+    mode: '644'
+- name: Copy vmlinuz-rescue
+  copy:
+    src: "/boot/vmlinuz-0-rescue-{{ rescue_version }}"
+    dest: /var/lib/tftpboot/images/RHEL-8.1/vmlinuz-rescue
+- name: Copy initramfs-rescue
+  copy:
+    src: "/boot/initramfs-0-rescue-{{ rescue_version }}.img"
+    dest: /var/lib/tftpboot/images/RHEL-8.1/initramfs-rescue.img
+    mode: '644'
 - name: Copy UEFI BOOTX64.EFI to TFTP Boot
   copy:
     src: /boot/efi/EFI/BOOT/BOOTX64.EFI

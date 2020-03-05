@@ -1,0 +1,5 @@
+- wakeonlan:
+    mac: "{{ ethernet }}"
+  delegate_to: localhost
+- wait_for_connection:
+- setup:

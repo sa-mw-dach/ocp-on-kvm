@@ -1,0 +1,24 @@
+default=0
+timeout=5
+
+menuentry 'Install Red Hat KVM for OpenShift {{ ocp_release }}' --class fedora --class gnu-linux --class gnu --class os {
+        insmod net
+        insmod efinet
+        insmod tftp
+        set net_default_server={{ hostvars[groups['bastionhost'][0]]['ansible_host'] }}
+        echo 'Loading Linux ...'
+        linuxefi (tftp)/images/RHEL-8.1/vmlinuz ip=dhcp console=tty0 console=ttyS0 video={{ kvm_boot_video_mode }} rd.neednet=1 nameserver={{ hostvars[groups['bastionhost'][0]]['ansible_host'] }} inst.repo=http://{{ hostvars[groups['bastionhost'][0]]['ansible_host'] }}/RedHat-RHEL/8.1 inst.ks=http://{{ hostvars[groups['bastionhost'][0]]['ansible_host'] }}/RedHat-RHEL/anaconda-ks-kvm.cfg consoleblank=0 BOOTIF=${net_efinet0_dhcp_mac}
+        echo 'Loading initial ramdisk ...'
+        initrdefi (tftp)/images/RHEL-8.1/initramfs.img
+}
+
+menuentry 'Red Hat KVM Rescue Mode' --class fedora --class gnu-linux --class gnu --class os {
+        insmod net
+        insmod efinet
+        insmod tftp
+        set net_default_server={{ hostvars[groups['bastionhost'][0]]['ansible_host'] }}
+        echo 'Loading Linux ...'
+        linuxefi (tftp)/images/RHEL-8.1/vmlinuz-rescue ip=dhcp console=tty0 console=ttyS0 video={{ kvm_boot_video_mode }} rd.neednet=1 nameserver={{ hostvars[groups['bastionhost'][0]]['ansible_host'] }} consoleblank=0 BOOTIF=${net_efinet0_dhcp_mac}
+        echo 'Loading initial ramdisk ...'
+        initrdefi (tftp)/images/RHEL-8.1/initramfs-rescue.img
+}
