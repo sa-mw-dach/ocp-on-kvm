@@ -27,6 +27,3 @@
 - selinux:
     policy: targeted
     state: enforcing
-- copy:
-    src:  /var/www/html/RedHat-RHEL/8.1/images/pxeboot/initrd.img
-    dest: /var/lib/tftpboot/images/RHEL-8.1/initrd.img

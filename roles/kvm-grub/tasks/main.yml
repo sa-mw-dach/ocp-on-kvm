@@ -1,2 +1,0 @@
-- name: Create Grub configuration for KVM Nodes
-  import_tasks: create_grub_configuration.yml

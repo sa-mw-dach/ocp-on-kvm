@@ -1,2 +1,2 @@
 inventory
-rhn.yml
+roles/kvm/vars/subscription-vault.yml

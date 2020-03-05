@@ -1,2 +1,0 @@
-- name: Remove all existing nodes
-  import_tasks: remove_all_nodes.yml
